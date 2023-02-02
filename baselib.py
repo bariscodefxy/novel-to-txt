@@ -6,6 +6,22 @@ except ImportError:
 
 class baselib:
 
+	def get_all(
+			self,
+			url,
+			element
+		):
+		episodes = {}
+		try:
+			html = requests.get(url).text
+		except:
+			print( "An exception occured" )
+
+		elem, attr = element
+		ep = BeautifulSoup(html).body.find(elem, attrs=attr).text
+		print(ep)
+		return ep
+
 	def get_text(
 			self,
 			url,
@@ -14,9 +30,10 @@ class baselib:
 		try:
 			html = requests.get(url).text
 		except:
-			print( __name__ + ".api_request(): An exception occurred" )
+			print( "An exception occurred" )
 
 
-		text = BeautifulSoup(html).body.find('div', {'class':'text-left'}).text
+		elem, attr = element
+		text = BeautifulSoup(html).body.find(elem, attrs=attr).text
 
 		return text
